@@ -193,8 +193,8 @@
   <script>
     const card = document.getElementById('card');
     document.addEventListener('mousemove', (e) => {
-      const x = (e.clientX / window.innerWidth - 0.5) * 20; // rotation Y
-      const y = (e.clientY / window.innerHeight - 0.5) * 20; // rotation X
+      const x = (e.clientX / window.innerWidth - 0.5) * 100; // rotation Y
+      const y = (e.clientY / window.innerHeight - 0.5) * 100; // rotation X
       card.style.transform = `rotateY(${x}deg) rotateX(${-y}deg)`;
     });
   </script>
