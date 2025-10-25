@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Merci !</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Review House</title>
 
   <!-- Police Milker -->
   <link href="https://fonts.cdnfonts.com/css/milker" rel="stylesheet">
@@ -14,36 +14,17 @@
       font-family: 'Poppins', sans-serif;
       margin: 0;
       height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
       overflow: hidden;
       background: radial-gradient(circle at 20% 20%, #0f0c29, #302b63, #24243e);
       color: white;
-      perspective: 1000px;
-      cursor: default; /* Curseur visible */
+      position: relative;
     }
 
-    /* --- Formes lumineuses animées en fond --- */
-    .bg-shape {
+    canvas {
       position: absolute;
-      width: 400px;
-      height: 400px;
-      border-radius: 50%;
-      filter: blur(150px);
-      opacity: 0.6;
-      animation: move 20s ease-in-out infinite;
-    }
-
-    .shape1 { background: #6a11cb; top: -100px; left: -100px; }
-    .shape2 { background: #2575fc; bottom: -120px; right: -150px; }
-    .shape3 { background: #00c6ff; top: 60%; left: 55%; }
-
-    @keyframes move {
-      0% { transform: translate(0, 0) scale(1); }
-      50% { transform: translate(50px, -50px) scale(1.2); }
-      100% { transform: translate(0, 0) scale(1); }
+      top: 0;
+      left: 0;
+      z-index: 0;
     }
 
     /* --- Titre principal --- */
@@ -58,6 +39,7 @@
       text-shadow: 0 0 25px #6a11cb, 0 0 50px #2575fc, 0 0 80px #00c6ff;
       animation: titlePulse 3s ease-in-out infinite;
       z-index: 5;
+      position: relative;
     }
 
     @keyframes titlePulse {
@@ -80,8 +62,8 @@
       backdrop-filter: blur(15px);
       text-align: center;
       animation: fadeIn 1.2s ease forwards;
-      transition: transform 0.2s ease;
       z-index: 2;
+      margin: 0 20px;
     }
 
     @keyframes fadeIn {
@@ -170,17 +152,12 @@
   </style>
 </head>
 <body>
-  <!-- Formes animées -->
-  <div class="bg-shape shape1"></div>
-  <div class="bg-shape shape2"></div>
-  <div class="bg-shape shape3"></div>
+  <canvas id="bgCanvas"></canvas>
 
-  <!-- Titre -->
   <h1 class="main-title">Review House</h1>
 
-  <!-- Contenu principal -->
-  <div class="container" id="card">
-    <h1>Merci pour votre visite !</h1>
+  <div class="container">
+    <h1>Merci pour votre visite ! 🎉</h1>
     <p>Nous apprécions votre soutien. Que souhaitez-vous faire ensuite ?</p>
     <div class="buttons">
       <a href="https://review-house.mysellauth.com/">Retour au site</a>
@@ -189,13 +166,73 @@
     </div>
   </div>
 
-  <!-- Effet d'inclinaison sur la carte seulement -->
   <script>
-    const card = document.getElementById('card');
-    document.addEventListener('mousemove', (e) => {
-      const x = (e.clientX / window.innerWidth - 0.5) * 100; // rotation Y
-      const y = (e.clientY / window.innerHeight - 0.5) * 100; // rotation X
-      card.style.transform = `rotateY(${x}deg) rotateX(${-y}deg)`;
+    const canvas = document.getElementById('bgCanvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const points = [];
+    const numPoints = 100;
+
+    // Générer les points
+    for(let i=0;i<numPoints;i++){
+      points.push({
+        x: Math.random()*canvas.width,
+        y: Math.random()*canvas.height,
+        size: 2 + Math.random()*2,
+        baseSize: 2 + Math.random()*2,
+      });
+    }
+
+    let mouse = {x: null, y: null};
+
+    document.addEventListener('mousemove', e=>{
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    });
+
+    function distance(p1,p2){
+      return Math.sqrt((p1.x-p2.x)**2 + (p1.y-p2.y)**2);
+    }
+
+    function animate(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      for(let p of points){
+        // Distance au curseur
+        let d = mouse.x!=null ? distance(p, mouse) : Infinity;
+        let alpha = 0.4;
+        let glow = 0;
+        if(d<150){
+          alpha = 0.4 + (150-d)/150*0.6;
+          glow = (150-d)/150*20;
+        }
+        // Dessiner le point
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+        ctx.fillStyle = `rgba(255,255,255,${alpha})`;
+        ctx.shadowColor = `rgba(255,255,255,${alpha})`;
+        ctx.shadowBlur = glow;
+        ctx.fill();
+
+        // Ligne vers la souris si proche
+        if(d<150){
+          ctx.beginPath();
+          ctx.moveTo(p.x,p.y);
+          ctx.lineTo(mouse.x, mouse.y);
+          ctx.strokeStyle = `rgba(255,255,255,${(150-d)/150*0.4})`;
+          ctx.lineWidth = 1;
+          ctx.shadowBlur = (150-d)/150*20;
+          ctx.stroke();
+        }
+      }
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    window.addEventListener('resize', ()=>{
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
     });
   </script>
 </body>
