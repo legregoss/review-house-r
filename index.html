@@ -19,7 +19,7 @@
       color: white;
     }
 
-    /* --- Formes lumineuses en arrière-plan --- */
+    /* --- Formes lumineuses animées en fond --- */
     .bg-shape {
       position: absolute;
       width: 400px;
@@ -57,7 +57,7 @@
       100% { transform: translate(0, 0) scale(1); }
     }
 
-    /* --- Carte principale --- */
+    /* --- Conteneur principal --- */
     .container {
       position: relative;
       background: rgba(255, 255, 255, 0.05);
@@ -88,7 +88,7 @@
       margin-bottom: 35px;
     }
 
-    /* --- Boutons avec glow et reflets --- */
+    /* --- Boutons stylisés avec glow dynamique --- */
     .buttons {
       display: flex;
       justify-content: center;
@@ -98,17 +98,19 @@
 
     .buttons a {
       text-decoration: none;
-      background: linear-gradient(90deg, #2575fc, #6a11cb);
+      background: linear-gradient(90deg, #6a11cb, #2575fc);
       color: white;
-      padding: 14px 30px;
+      padding: 14px 32px;
       border-radius: 12px;
       font-weight: 600;
       letter-spacing: 0.5px;
       position: relative;
       overflow: hidden;
-      transition: all 0.3s ease;
-      box-shadow: 0 0 15px rgba(106, 17, 203, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.4s ease;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 0 20px rgba(106, 17, 203, 0.4),
+                  0 0 40px rgba(37, 117, 252, 0.2);
+      cursor: pointer;
     }
 
     .buttons a::before {
@@ -123,14 +125,32 @@
       transition: 0.6s;
     }
 
+    /* --- Effet de survol amélioré --- */
     .buttons a:hover::before {
       left: 200%;
     }
 
     .buttons a:hover {
       transform: scale(1.07);
-      box-shadow: 0 0 25px rgba(106, 17, 203, 0.9),
-                  0 0 50px rgba(37, 117, 252, 0.6);
+      background: linear-gradient(90deg, #2575fc, #6a11cb, #00c6ff);
+      box-shadow: 
+        0 0 20px #6a11cb,
+        0 0 40px #2575fc,
+        0 0 60px #00c6ff;
+      animation: buttonGlow 2s linear infinite;
+    }
+
+    /* Animation du glow changeant au survol */
+    @keyframes buttonGlow {
+      0% {
+        box-shadow: 0 0 20px #6a11cb, 0 0 40px #2575fc, 0 0 60px #00c6ff;
+      }
+      50% {
+        box-shadow: 0 0 25px #2575fc, 0 0 50px #00c6ff, 0 0 75px #6a11cb;
+      }
+      100% {
+        box-shadow: 0 0 20px #6a11cb, 0 0 40px #2575fc, 0 0 60px #00c6ff;
+      }
     }
 
     /* --- Glow animé autour du container --- */
