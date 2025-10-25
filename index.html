@@ -5,43 +5,97 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Merci !</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f5f7fa;
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      height: 100vh;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      margin: 0;
+      background: linear-gradient(270deg, #6a11cb, #2575fc, #00c6ff);
+      background-size: 600% 600%;
+      animation: gradientShift 12s ease infinite;
     }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
     .container {
-      background: white;
-      padding: 40px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      padding: 50px;
       border-radius: 20px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.2);
       text-align: center;
+      color: white;
+      animation: fadeIn 1.2s ease forwards;
+      transform: translateY(20px);
+      opacity: 0;
     }
+
+    @keyframes fadeIn {
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
     h1 {
-      color: #333;
-      margin-bottom: 20px;
+      font-size: 2em;
+      margin-bottom: 15px;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
     }
+
     p {
-      color: #666;
-      margin-bottom: 30px;
+      color: #e0e0e0;
+      margin-bottom: 35px;
     }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
     .buttons a {
       text-decoration: none;
-      background-color: #007BFF;
+      background: linear-gradient(90deg, #2575fc, #6a11cb);
       color: white;
-      padding: 12px 25px;
-      border-radius: 10px;
-      margin: 5px;
-      transition: background-color 0.3s;
-      display: inline-block;
+      padding: 14px 30px;
+      border-radius: 12px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 10px rgba(37, 117, 252, 0.4);
+      position: relative;
+      overflow: hidden;
     }
+
+    .buttons a::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.3);
+      transform: skewX(-25deg);
+      transition: 0.5s;
+    }
+
+    .buttons a:hover::before {
+      left: 200%;
+    }
+
     .buttons a:hover {
-      background-color: #0056b3;
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(37, 117, 252, 0.8);
     }
   </style>
 </head>
@@ -50,9 +104,9 @@
     <h1>Merci pour votre visite ! 🎉</h1>
     <p>Nous apprécions votre soutien. Que souhaitez-vous faire ensuite ?</p>
     <div class="buttons">
-    <a href="https://review-house.mysellauth.com/">Retour au site</a>
-    <a href="https://discord.gg/9AKGf7QfKY">Nous contacter</a>
-    <a href="https://www.behance.net/gregorydesousa">Me soutenir</a>
+      <a href="https://review-house.mysellauth.com/">Retour au site</a>
+      <a href="https://discord.gg/9AKGf7QfKY">Nous contacter</a>
+      <a href="https://www.behance.net/gregorydesousa">Me soutenir</a>
     </div>
   </div>
 </body>
