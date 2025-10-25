@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Merci !</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f7fa;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+    p {
+      color: #666;
+      margin-bottom: 30px;
+    }
+    .buttons a {
+      text-decoration: none;
+      background-color: #007BFF;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 10px;
+      margin: 5px;
+      transition: background-color 0.3s;
+      display: inline-block;
+    }
+    .buttons a:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Merci pour votre visite ! 🎉</h1>
+    <p>Nous apprécions votre soutien. Que souhaitez-vous faire ensuite ?</p>
+    <div class="buttons">
+    <a href="https://review-house.mysellauth.com/">Retour au site</a>
+    <a href="https://discord.gg/9AKGf7QfKY">Nous contacter</a>
+    <a href="https://www.behance.net/gregorydesousa">Me soutenir</a>
+    </div>
+  </div>
+</body>
+</html>
