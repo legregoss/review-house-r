@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Merci !</title>
 
-  <!-- Police Milker (ou équivalent moderne si non dispo) -->
   <link href="https://fonts.cdnfonts.com/css/milker" rel="stylesheet">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
@@ -21,9 +20,11 @@
       overflow: hidden;
       background: radial-gradient(circle at 20% 20%, #0f0c29, #302b63, #24243e);
       color: white;
+      perspective: 1000px;
+      cursor: none; /* optionnel : masque le curseur pour un rendu plus clean */
     }
 
-    /* --- Formes lumineuses animées --- */
+    /* --- Formes lumineuses en fond --- */
     .bg-shape {
       position: absolute;
       width: 400px;
@@ -32,10 +33,12 @@
       filter: blur(150px);
       opacity: 0.6;
       animation: move 20s ease-in-out infinite;
+      transition: transform 0.3s ease;
     }
-    .shape1 { background: #6a11cb; top: -100px; left: -100px; animation-delay: 0s; }
-    .shape2 { background: #2575fc; bottom: -120px; right: -150px; animation-delay: 5s; }
-    .shape3 { background: #00c6ff; top: 50%; left: 60%; animation-delay: 10s; }
+
+    .shape1 { background: #6a11cb; top: -100px; left: -100px; }
+    .shape2 { background: #2575fc; bottom: -120px; right: -150px; }
+    .shape3 { background: #00c6ff; top: 60%; left: 55%; }
 
     @keyframes move {
       0% { transform: translate(0, 0) scale(1); }
@@ -51,23 +54,26 @@
       letter-spacing: 4px;
       margin-bottom: 30px;
       text-align: center;
-      background: linear-gradient(90deg, #6a11cb, #2575fc, #00c6ff, #6a11cb);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: gradientShift 8s linear infinite, titleGlow 3s ease-in-out infinite;
-      text-shadow: 0 0 20px rgba(106, 17, 203, 0.6),
-                   0 0 40px rgba(37, 117, 252, 0.4);
+      color: white;
+      text-shadow: 0 0 25px #6a11cb, 0 0 50px #2575fc, 0 0 80px #00c6ff;
+      animation: titlePulse 3s ease-in-out infinite;
+      transition: transform 0.2s ease;
+      z-index: 5;
     }
 
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    @keyframes titleGlow {
-      0%, 100% { text-shadow: 0 0 15px #6a11cb, 0 0 40px #2575fc; }
-      50% { text-shadow: 0 0 25px #2575fc, 0 0 60px #00c6ff; }
+    @keyframes titlePulse {
+      0%, 100% {
+        text-shadow:
+          0 0 25px #6a11cb,
+          0 0 50px #2575fc,
+          0 0 80px #00c6ff;
+      }
+      50% {
+        text-shadow:
+          0 0 40px #2575fc,
+          0 0 80px #00c6ff,
+          0 0 120px #6a11cb;
+      }
     }
 
     /* --- Carte principale --- */
@@ -81,6 +87,7 @@
       backdrop-filter: blur(15px);
       text-align: center;
       animation: fadeIn 1.2s ease forwards;
+      transition: transform 0.2s ease;
       z-index: 2;
     }
 
@@ -101,7 +108,7 @@
       margin-bottom: 35px;
     }
 
-    /* --- Boutons stylisés avec glow dynamique --- */
+    /* --- Boutons --- */
     .buttons {
       display: flex;
       justify-content: center;
@@ -119,10 +126,10 @@
       letter-spacing: 0.5px;
       position: relative;
       overflow: hidden;
-      transition: all 0.4s ease;
+      transition: all 0.3s ease;
       border: 1px solid rgba(255, 255, 255, 0.15);
-      box-shadow: 0 0 20px rgba(106, 17, 203, 0.4),
-                  0 0 40px rgba(37, 117, 252, 0.2);
+      box-shadow: 0 0 20px rgba(106, 17, 203, 0.5),
+                  0 0 40px rgba(37, 117, 252, 0.3);
       cursor: pointer;
     }
 
@@ -138,22 +145,17 @@
       transition: 0.6s;
     }
 
-    .buttons a:hover::before { left: 200%; }
+    .buttons a:hover::before {
+      left: 200%;
+    }
 
     .buttons a:hover {
-      transform: scale(1.07);
-      background: linear-gradient(90deg, #2575fc, #6a11cb, #00c6ff);
-      animation: buttonGlow 2s linear infinite;
-      box-shadow: 0 0 25px #6a11cb, 0 0 50px #2575fc, 0 0 70px #00c6ff;
+      transform: scale(1.08);
+      box-shadow: 0 0 30px #6a11cb, 0 0 60px #2575fc, 0 0 100px #00c6ff;
+      background: linear-gradient(90deg, #2575fc, #00c6ff, #6a11cb);
     }
 
-    @keyframes buttonGlow {
-      0% { box-shadow: 0 0 20px #6a11cb, 0 0 40px #2575fc, 0 0 60px #00c6ff; }
-      50% { box-shadow: 0 0 25px #2575fc, 0 0 50px #00c6ff, 0 0 75px #6a11cb; }
-      100% { box-shadow: 0 0 20px #6a11cb, 0 0 40px #2575fc, 0 0 60px #00c6ff; }
-    }
-
-    /* --- Glow animé autour du container --- */
+    /* --- Glow autour de la carte --- */
     .container::before {
       content: "";
       position: absolute;
@@ -182,12 +184,12 @@
   <div class="bg-shape shape2"></div>
   <div class="bg-shape shape3"></div>
 
-  <!-- Gros titre -->
-  <h1 class="main-title">Review House</h1>
+  <!-- Titre -->
+  <h1 class="main-title" id="mainTitle">Review House</h1>
 
   <!-- Contenu principal -->
-  <div class="container">
-    <h1>Merci pour votre visite ! 🎉</h1>
+  <div class="container" id="card">
+    <h1>Merci pour votre visite !</h1>
     <p>Nous apprécions votre soutien. Que souhaitez-vous faire ensuite ?</p>
     <div class="buttons">
       <a href="https://review-house.mysellauth.com/">Retour au site</a>
@@ -195,5 +197,24 @@
       <a href="https://www.behance.net/gregorydesousa">Me soutenir</a>
     </div>
   </div>
+
+  <!-- Effet parallax interactif -->
+  <script>
+    const title = document.getElementById('mainTitle');
+    const card = document.getElementById('card');
+    const shapes = document.querySelectorAll('.bg-shape');
+
+    document.addEventListener('mousemove', (e) => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 2;
+      const y = (e.clientY / window.innerHeight - 0.5) * 2;
+
+      title.style.transform = `translate(${x * 20}px, ${y * 20}px)`;
+      card.style.transform = `rotateY(${x * 10}deg) rotateX(${-y * 10}deg)`;
+
+      shapes.forEach((shape, i) => {
+        shape.style.transform = `translate(${x * (40 + i * 10)}px, ${y * (40 + i * 10)}px)`;
+      });
+    });
+  </script>
 </body>
 </html>
