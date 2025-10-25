@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Merci !</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
@@ -14,48 +14,81 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background: linear-gradient(270deg, #6a11cb, #2575fc, #00c6ff);
-      background-size: 600% 600%;
-      animation: gradientShift 12s ease infinite;
+      overflow: hidden;
+      background: radial-gradient(circle at 20% 20%, #0f0c29, #302b63, #24243e);
+      color: white;
     }
 
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+    /* --- Formes lumineuses en arrière-plan --- */
+    .bg-shape {
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      filter: blur(150px);
+      opacity: 0.6;
+      animation: move 20s ease-in-out infinite;
     }
 
+    .shape1 {
+      background: #6a11cb;
+      top: -100px;
+      left: -100px;
+      animation-delay: 0s;
+    }
+
+    .shape2 {
+      background: #2575fc;
+      bottom: -120px;
+      right: -150px;
+      animation-delay: 5s;
+    }
+
+    .shape3 {
+      background: #00c6ff;
+      top: 50%;
+      left: 60%;
+      animation-delay: 10s;
+    }
+
+    @keyframes move {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(50px, -50px) scale(1.2); }
+      100% { transform: translate(0, 0) scale(1); }
+    }
+
+    /* --- Carte principale --- */
     .container {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
+      position: relative;
+      background: rgba(255, 255, 255, 0.05);
+      border: 2px solid rgba(255, 255, 255, 0.15);
       padding: 50px;
       border-radius: 20px;
       box-shadow: 0 0 25px rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(15px);
       text-align: center;
-      color: white;
       animation: fadeIn 1.2s ease forwards;
-      transform: translateY(20px);
-      opacity: 0;
+      z-index: 2;
     }
 
     @keyframes fadeIn {
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     h1 {
-      font-size: 2em;
+      font-size: 2.3em;
       margin-bottom: 15px;
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.7),
+                   0 0 20px rgba(37, 117, 252, 0.4);
     }
 
     p {
-      color: #e0e0e0;
+      color: #dcdcdc;
       margin-bottom: 35px;
     }
 
+    /* --- Boutons avec glow et reflets --- */
     .buttons {
       display: flex;
       justify-content: center;
@@ -71,10 +104,11 @@
       border-radius: 12px;
       font-weight: 600;
       letter-spacing: 0.5px;
-      transition: all 0.3s ease;
-      box-shadow: 0 0 10px rgba(37, 117, 252, 0.4);
       position: relative;
       overflow: hidden;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 15px rgba(106, 17, 203, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .buttons a::before {
@@ -86,7 +120,7 @@
       height: 100%;
       background: rgba(255, 255, 255, 0.3);
       transform: skewX(-25deg);
-      transition: 0.5s;
+      transition: 0.6s;
     }
 
     .buttons a:hover::before {
@@ -94,12 +128,41 @@
     }
 
     .buttons a:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 20px rgba(37, 117, 252, 0.8);
+      transform: scale(1.07);
+      box-shadow: 0 0 25px rgba(106, 17, 203, 0.9),
+                  0 0 50px rgba(37, 117, 252, 0.6);
+    }
+
+    /* --- Glow animé autour du container --- */
+    .container::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      padding: 2px;
+      background: linear-gradient(135deg, #6a11cb, #2575fc, #00c6ff, #6a11cb);
+      background-size: 400% 400%;
+      animation: glow 10s linear infinite;
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+              mask-composite: exclude;
+      z-index: -1;
+    }
+
+    @keyframes glow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
   </style>
 </head>
 <body>
+  <!-- Formes animées -->
+  <div class="bg-shape shape1"></div>
+  <div class="bg-shape shape2"></div>
+  <div class="bg-shape shape3"></div>
+
+  <!-- Contenu principal -->
   <div class="container">
     <h1>Merci pour votre visite ! 🎉</h1>
     <p>Nous apprécions votre soutien. Que souhaitez-vous faire ensuite ?</p>
