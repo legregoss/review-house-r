@@ -13,8 +13,8 @@
     body {
       font-family: 'Poppins', sans-serif;
       margin: 0;
-      height: 100vh;
-      width: 100vw;
+      min-height: 100vh;
+      width: 100%;
       overflow: hidden;
       background: radial-gradient(circle at 20% 20%, #0f0c29, #302b63, #24243e);
       color: white;
@@ -23,6 +23,8 @@
       align-items: center;
       flex-direction: column;
       position: relative;
+      padding: 20px;
+      box-sizing: border-box;
     }
 
     canvas {
@@ -32,7 +34,6 @@
       z-index: 0;
     }
 
-    /* --- Conteneur central --- */
     .center-wrapper {
       position: relative;
       display: flex;
@@ -40,9 +41,10 @@
       align-items: center;
       justify-content: center;
       z-index: 2;
+      width: 100%;
+      max-width: 700px;
     }
 
-    /* --- Titre principal --- */
     .main-title {
       font-family: 'Milker', sans-serif;
       font-size: 4em;
@@ -52,7 +54,8 @@
       color: white;
       text-shadow: 0 0 25px #6a11cb, 0 0 50px #2575fc, 0 0 80px #00c6ff;
       animation: titlePulse 3s ease-in-out infinite;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
+      padding: 0 10px;
     }
 
     @keyframes titlePulse {
@@ -64,13 +67,9 @@
       }
     }
 
-    /* --- Carte carrée --- */
     .container {
-      position: relative;
       background: rgba(255, 255, 255, 0.05);
       border: 2px solid rgba(255, 255, 255, 0.15);
-      width: 640px;
-      height: 340px;
       border-radius: 20px;
       box-shadow: 0 0 25px rgba(255, 255, 255, 0.2);
       backdrop-filter: blur(15px);
@@ -81,6 +80,10 @@
       align-items: center;
       transition: transform 0.2s ease;
       margin-bottom: 20px;
+      padding: 30px 20px;
+      width: 90%;
+      max-width: 640px;
+      box-sizing: border-box;
     }
 
     .container h1 {
@@ -95,14 +98,16 @@
       margin-bottom: 25px;
       padding: 0 15px;
       text-align: center;
+      font-size: 1em;
+      line-height: 1.5;
     }
 
-    /* --- Boutons --- */
     .buttons {
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
       gap: 12px;
+      margin-bottom: 12px;
     }
 
     .buttons a {
@@ -142,7 +147,15 @@
       background: linear-gradient(90deg, #2575fc, #00c6ff, #6a11cb);
     }
 
-    /* --- Glow autour de la carte --- */
+    /* --- Texte d’aide --- */
+    .help-text {
+      font-size: 0.9em;
+      color: rgba(255, 255, 255, 0.8);
+      text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+      margin-top: 5px;
+      padding: 0 15px;
+    }
+
     .container::before {
       content: "";
       position: absolute;
@@ -163,6 +176,25 @@
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
+
+    @media (max-width: 768px) {
+      .main-title { font-size: 2.8em; letter-spacing: 2px; }
+      .container { padding: 25px 15px; }
+      .container h1 { font-size: 1.3em; }
+      .container p { font-size: 0.95em; }
+      .buttons a { padding: 10px 20px; font-size: 0.95em; }
+    }
+
+    @media (max-width: 480px) {
+      body { padding: 10px; }
+      .main-title { font-size: 2.2em; margin-bottom: 15px; }
+      .container { width: 100%; padding: 20px 10px; border-radius: 15px; }
+      .container h1 { font-size: 1.2em; }
+      .container p { font-size: 0.9em; }
+      .buttons { flex-direction: column; gap: 10px; }
+      .buttons a { width: 100%; max-width: 260px; padding: 10px; font-size: 0.9em; }
+      .help-text { font-size: 0.85em; }
+    }
   </style>
 </head>
 <body>
@@ -174,11 +206,16 @@
     <div class="container">
       <h1>Merci pour votre visite ! 🎉</h1>
       <p>Nous apprécions votre soutien. Que souhaitez-vous faire ensuite ?</p>
+
       <div class="buttons">
         <a href="https://review-house.mysellauth.com/">Retour au site</a>
         <a href="https://discord.gg/9AKGf7QfKY">Nous contacter</a>
         <a href="https://www.behance.net/gregorydesousa">Me soutenir</a>
       </div>
+
+      <p class="help-text">
+        Si vous rencontrez un problème avec votre commande, cliquez sur <strong>« Nous contacter »</strong> pour obtenir de l’aide.
+      </p>
     </div>
   </div>
 
